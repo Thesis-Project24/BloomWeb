@@ -12,6 +12,9 @@ import Signup from "./assets/Components/Signin/Signup/Signup";
 import Footer from "./assets/Components/NavBar/Footer";
 import {QueryClient,QueryClientProvider} from "@tanstack/react-query"
 import ArticleDet from "./assets/Components/Articles/ArticleDet";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 const queryClient = new QueryClient();
@@ -20,6 +23,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
     <Router>
         <NavBar />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/about" element={<About />} />

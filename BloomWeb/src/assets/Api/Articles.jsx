@@ -26,6 +26,23 @@ export const useFetchOneArticle = (id) => {
   return query;
 };
 
+
+// // {Article Saving} //
+
+export const useSaveArticle = () => {
+  const mutation = useMutation(
+    async ({ userId, articleId }) => {
+      const response = await axios.post(
+        `http://localhost:3000/articles/saveArticle`,
+        { userId, articleId }
+      );
+
+      return response.data;
+    }
+  );
+  return [mutation.mutate, mutation.data, mutation.error];
+};
+
 // // {Article Creation} //
 
 // export const createArticle = () => {
@@ -48,21 +65,7 @@ export const useFetchOneArticle = (id) => {
 //   );
 //   return mutation;
 // };
-// // {Article Saving} //
 
-// export const useSaveArticle = () => {
-//   const mutation = useMutation(
-//     async ({ userId, articleId }: { userId: number; articleId: number }) => {
-//       const response = await axios.post(
-//         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/articles/saveArticle`,
-//         { userId, articleId }
-//       );
-
-//       return response.data;
-//     }
-//   );
-//   return [mutation.mutate, mutation.data, mutation.error];
-// };
 
 // //  {Saved Articles fetcher} //
 // export const useFetchSavedArticles = (userId: number) => {

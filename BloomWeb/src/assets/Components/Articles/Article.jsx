@@ -1,8 +1,29 @@
 import React from "react";
+import { CiSaveDown2 } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useSaveArticle } from "../../Api/Articles";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+
 
 const Article = ({ article, author }) => {
   const truncatedContent = article.content.substring(0, 150);
+
+  // {article Saving} // 
+  const [saveArticle] = useSaveArticle();
+  const articleId = article.id
+
+  const handleSaveArticle = async () => {
+    try {
+      await saveArticle({userId:"60vmsXXEHuciTCixGiVBKxBj7Do1" , articleId,});
+      toast.success("Article saved successfully!");
+    } catch (error) {
+      console.error("Error saving article", error);
+      toast.error("Error saving article. Please try again.");
+    }
+  }
   return (
     <div className="max-w-2xl mx-auto my-8 p-8 bg-[#F3F0EA] rounded-lg shadow-xl ">
       <div className="flex items-center mb-4">
@@ -29,11 +50,16 @@ const Article = ({ article, author }) => {
           </>
         )}
       </p>
+      <div className="flex justify-between"> 
       <p className=" me-4 md:me-6 cursor-pointer mt-[10px]">
         <span className="shadow-inner border rounded-3xl p-[2px] hover:bg-gray-400 transition-all">
           {author.doctorSpecialty}
         </span>
       </p>
+      <CiSaveDown2 className="mt-[45px] cursor-pointer hover:bg-gray-200"
+      onClick={handleSaveArticle}
+      />
+      </div>
     </div>
   );
 };
