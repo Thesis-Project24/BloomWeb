@@ -1,21 +1,19 @@
 import React from 'react';
-import axios from 'axios';
-import { useQuery } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom';
-import { IoAddCircleSharp } from 'react-icons/io5'; // Assuming we use React Icons for icons
+import { useNavigate } from 'react-router-dom';
 import { fetchForumPosts } from '../../Api/Forum';
-
-
-
+import PostForum from './PostForum';
+import CreatePost from './createPost';
 
 const Forum = () => {
   const navigate = useNavigate();
   const { data: posts, isLoading, error, refetch } = fetchForumPosts();
 
   if (isLoading) {
-    return <div className="flex justify-center items-center h-screen">
-             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
-           </div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+      </div>
+    );
   }
 
   if (error) {
@@ -23,17 +21,19 @@ const Forum = () => {
   }
 
   return (
-    <div>
-      <img className="relative h-24 w-full object-cover" src={require("../assets/vector-1.png")} />
-      <div className="bg-gray-100 py-5 h-screen">
+    <div className="grid md:grid-cols-3 lg:grid-cols-4 p-4 gap-4">
+      {/* CreatePost component on the left side */}
+      <div className="md:col-span-1 lg:col-span-1">
+        <CreatePost refetch={refetch} />
+      </div>
+      <div className="md:col-span-2 lg:col-span-3">
         <ul>
-          {posts.map((post) => (
-            <li key={post.id} className="mb-4">
+          {posts.reverse().map((post) => (
+            <li key={post.id} className="mb-4 ">
               <PostForum refetch={refetch} post={post} />
             </li>
           ))}
         </ul>
-        <IoAddCircleSharp className="text-4xl text-green-400 mx-auto mb-10" onClick={() => navigate("/CreatePost")} />
       </div>
     </div>
   );
