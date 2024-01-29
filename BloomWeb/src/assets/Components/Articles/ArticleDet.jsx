@@ -5,10 +5,13 @@ import { useFetchOneArticle } from '../../Api/Articles';
 const ArticleDet = () => {
   const { id } = useParams(); 
   const { data, isLoading, isError } = useFetchOneArticle(id);
-console.log("dd");
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+if (isLoading) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+    </div>
+  );
+}
 
   if (isError) {
 
