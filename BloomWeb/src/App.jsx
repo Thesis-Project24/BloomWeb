@@ -1,4 +1,3 @@
-// src/App.js
 import * as React from "react";
 import { Route, Routes, BrowserRouter as Router, Link, Form } from "react-router-dom";
 import About from "./assets/Components/About/About";
