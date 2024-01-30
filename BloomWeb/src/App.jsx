@@ -13,6 +13,7 @@ import {QueryClient,QueryClientProvider} from "@tanstack/react-query"
 import ArticleDet from "./assets/Components/Articles/ArticleDet";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Appi from "./assets/Components/Appi";
 import SavedArticles from "./assets/Components/Articles/SavedArticles";
 
 
@@ -26,7 +27,7 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<Appi/>} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/article/:id" element={<ArticleDet/>}/>
           <Route path="/savedArticles" element={<SavedArticles/>}/>
@@ -34,6 +35,7 @@ function App() {
           <Route path="/forum" element={<Forum />} />
           <Route path="/signin" element={<Signin />}/>
           <Route path="/signin/signup" element={<Signup />}/>
+          <Route path="/Appi" element={<Appi/>}/>
         </Routes>
       <Footer/>
     </Router>
