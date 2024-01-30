@@ -14,6 +14,7 @@ import ArticleDet from "./assets/Components/Articles/ArticleDet";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Appi from "./assets/Components/Appi";
+import SavedArticles from "./assets/Components/Articles/SavedArticles";
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/about" element={<Appi/>} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/article/:id" element={<ArticleDet/>}/>
+          <Route path="/savedArticles" element={<SavedArticles/>}/>
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/signin" element={<Signin />}/>

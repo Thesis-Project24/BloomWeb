@@ -2,30 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useFetchArticles } from "../../Api/Articles";
 import ImageSlider from "./ImageSlider";
 import Article from "./Article";
+import { useNavigate } from "react-router-dom";
 
 const Articles = () => {
+  const navigate = useNavigate();
   const { data, isLoading, isError, isSuccess, refetch } = useFetchArticles();
   const [filterdData, setFiltredData] = useState(null); // Initialize as null
   const [searchKeyword, setSearchKeyword] = useState("");
-  console.log(data);
+ 
   useEffect(() => {
-    // if (data && Array.isArray(data)) {
-      
-    
+    // if (data && Array.isArray(data)) 
+
     if (searchKeyword) {
       const lowerCaseKeyword = searchKeyword.toLowerCase();
       setFiltredData(
-        data.filter((article) =>
-          article.title.toLowerCase().includes(lowerCaseKeyword) ||
-          article.content.toLowerCase().includes(lowerCaseKeyword) ||
-          article.author.first_name.toLowerCase().includes(lowerCaseKeyword) ||
-          article.author.last_name.toLowerCase().includes(lowerCaseKeyword)
+        data.filter(
+          (article) =>
+            article.title.toLowerCase().includes(lowerCaseKeyword) ||
+            article.content.toLowerCase().includes(lowerCaseKeyword) ||
+            article.author.first_name
+              .toLowerCase()
+              .includes(lowerCaseKeyword) ||
+            article.author.last_name.toLowerCase().includes(lowerCaseKeyword)
         )
       );
     } else {
       setFiltredData(data);
-    // }
-  }
+      // }
+    }
   }, [searchKeyword, data]);
 
   if (isLoading) {
@@ -34,8 +38,6 @@ const Articles = () => {
   if (isError) {
     return <p>Error loading Articles</p>;
   }
-
-  // console.log(data);
 
   return (
     <div>
@@ -56,7 +58,7 @@ const Articles = () => {
               type="text"
               className="w-full max-w-[1600px] pl-2 text-base font-semibold outline-0 rounded bg-transparent"
               placeholder="Search for your article"
-              onChange={(e)=>setSearchKeyword(e.target.value)}
+              onChange={(e) => setSearchKeyword(e.target.value)}
             />
           </div>
         </div>
@@ -71,7 +73,10 @@ const Articles = () => {
             <li className="hover:underline me-4 md:me-6 shadow-sm text-sm font-medium text-gray-50 sm:mb-0 cursor-pointer">
               For You
             </li>
-            <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
+            <li
+              className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer"
+              onClick={() => navigate("/savedArticles")}
+            >
               Saved
             </li>
             <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
@@ -83,11 +88,13 @@ const Articles = () => {
             <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
               Psychoneurosis
             </li>
-            <li className="hover: me-4 md:me-6 shadow-sm cursor-pointer">{">"}</li>
+            <li className="hover: me-4 md:me-6 shadow-sm cursor-pointer">
+              {">"}
+            </li>
           </ul>
         </div>
       </div>
-      <div >
+      <div>
         {/* Article */}
         {filterdData &&
           filterdData.map((ele) => {
@@ -104,7 +111,7 @@ const Articles = () => {
                   doctorName: ele.author.first_name,
                   doctorLastName: ele.author.last_name,
                   doctorProfilePicture: ele.author.profile_picture,
-                  doctorSpecialty: ele.author.specialty
+                  doctorSpecialty: ele.author.specialty,
                 }}
               />
             );
