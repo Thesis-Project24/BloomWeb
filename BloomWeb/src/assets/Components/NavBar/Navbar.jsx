@@ -19,7 +19,7 @@ const Navbar = () => {
           <li className="mr-4   hover:text-gray-500">Artices</li>
           </Link>
           <Link to={"/About"}> 
-          <li className="mr-4   hover:text-gray-500">About Us</li>
+          <li className="mr-4   hover:text-gray-500">Appointment</li>
           </Link>
         </ul>
         <ul className="flex justify-stretch space-x-[40px]">

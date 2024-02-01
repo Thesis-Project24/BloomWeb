@@ -1,3 +1,5 @@
+import AppStore from "../Download/AppStore";
+import PlayStore from "../Download/PlayStore";
 import BgVideo from "./BgVideo";
 
 const Landing = () => {
@@ -12,6 +14,12 @@ const Landing = () => {
           <h1 className="text-[50px] text-white font-serif pl-[90px] ">
             Your Path to Mental Well-Being
           </h1>
+          <div className=" cursor-pointer flex items-center  ">
+            <div className="ml-[10px] mr-[10px]">
+            <AppStore />
+            </div>
+            <PlayStore />
+          </div>
         </div>
         <img
           className="h-[450px] w-[850px]  mt-[0px]"
@@ -26,6 +34,7 @@ const Landing = () => {
             src="https://cdn.discordapp.com/attachments/1149048068742848594/1199687732197326899/image_2024-01-24_131009178-removebg-preview.png?ex=65c37344&is=65b0fe44&hm=34510459e3dc58aa03ce1aa5290fe47270175a5891014e6a192805c702692104&"
             alt=""
           />
+         
           <div className="absolute top-[100px] left-[95px] p-4  bg-opacity-50">
             <p className="text-white  w-[450px]">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -36,7 +45,6 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

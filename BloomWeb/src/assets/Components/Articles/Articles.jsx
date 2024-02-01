@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 const Articles = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError, isSuccess, refetch } = useFetchArticles();
-  const [filterdData, setFiltredData] = useState(null); // Initialize as null
+  const [filterdData, setFiltredData] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
- 
+
   useEffect(() => {
-    // if (data && Array.isArray(data)) 
+    // if (data && Array.isArray(data))
 
     if (searchKeyword) {
       const lowerCaseKeyword = searchKeyword.toLowerCase();
@@ -28,7 +28,6 @@ const Articles = () => {
       );
     } else {
       setFiltredData(data);
-      // }
     }
   }, [searchKeyword, data]);
 

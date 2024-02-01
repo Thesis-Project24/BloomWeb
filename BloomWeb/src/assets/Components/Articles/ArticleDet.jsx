@@ -18,7 +18,7 @@ if (isLoading) {
     return <p>Error loading Article</p>;
   }
 
-//   const article = data; 
+
 
   return (
     <div className="max-w-2xl mx-auto my-8 p-8 bg-white rounded-lg shadow-xl ">
