@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useFetchDoctors } from "../../Api/Doctors";
 import Doctor from "./Doctor";
@@ -8,33 +8,37 @@ import PlayStore from "../Download/PlayStore";
 const Doctors = () => {
   const { data, isLoading, isError, isSuccess, refetch } = useFetchDoctors();
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState("All");
   const [filterdData, setFiltredData] = useState(null);
   console.log(data);
 
   useEffect(() => {
-    // if (data && Array.isArray(data))
-
-    if (searchKeyword) {
+    if (searchKeyword || selectedSpecialty !== "All") {
       const lowerCaseKeyword = searchKeyword.toLowerCase();
       setFiltredData(
         data.filter(
           (doctor) =>
-          // console.log(doctor,"from the inside")
-          doctor.first_name.toLowerCase().includes(lowerCaseKeyword)||
-          doctor.last_name.toLowerCase().includes(lowerCaseKeyword)||
-          doctor.phone_number.includes(lowerCaseKeyword)||
-          doctor.address[0].includes(lowerCaseKeyword)
-          )
-          );
-        } else {
+            (selectedSpecialty === "All" ||
+              doctor.specialty.toLowerCase() ===
+                selectedSpecialty.toLowerCase()) &&
+            (doctor.first_name.toLowerCase().includes(lowerCaseKeyword) ||
+              doctor.last_name.toLowerCase().includes(lowerCaseKeyword) ||
+              doctor.phone_number.includes(lowerCaseKeyword) ||
+              doctor.address[0].includes(lowerCaseKeyword))
+        )
+      );
+    } else {
       setFiltredData(data);
     }
-  }, [searchKeyword, data]);
+  }, [searchKeyword, data, selectedSpecialty]);
   // console.log(filterdData,"ddsdsdsdsdsdsd");
+  const handleSpecialtyClick = (specialty) => {
+    setSelectedSpecialty(specialty);
+  };
   return (
     <div>
-       {/* searchBar section */}
-       <div className="flex items-center justify-start p-5">
+      {/* searchBar section */}
+      <div className="flex items-center justify-start p-5">
         <div className="rounded-lg p-5">
           <div className="flex border rounded-lg border-gray-200">
             <div className="flex w-10 items-center justify-center rounded-tl-lg rounded-bl-lg p-5">
@@ -56,70 +60,99 @@ const Doctors = () => {
         </div>
       </div>
       {/* filter section */}
-    <div className="flex justify-center mt-[50px] ">
-      <div className="p-[20px] border rounded-2xl">
-        <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 ">
-          <Link to={`/doctors`}>
-          <li className="hover:underline me-4 md:me-6 shadow-sm text-sm font-medium text-gray-50 sm:mb-0 cursor-pointer">
+      <div className="flex justify-center mt-[50px] ">
+        <div className="p-[20px] border rounded-2xl">
+          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 ">
+            {/* <li className="hover:underline me-4 md:me-6 shadow-sm text-sm font-medium text-gray-50 sm:mb-0 cursor-pointer">
             All Doctors
-          </li>
-          </Link>
-          <Link to={`/doctors/Psychiatry`}>
-          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
-            Psychiatry
-          </li>
-          </Link>
-          <Link to={`/doctors/psychology`}>
-          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
-            psychology
-          </li>
-          </Link>
-          <Link  to={`/doctors/psychology`}>
-          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
-            Psychoneurosis
-          </li>
-          </Link>
-          <Link>
-          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
-            Neuropsychiatry
-          </li>
-          </Link>
-          <li className="hover: me-4 md:me-6 shadow-sm cursor-pointer">
-            {">"}
-          </li>
-        </ul>
+          </li> */}
+            <li
+              onClick={() => handleSpecialtyClick("All")}
+              className={`hover:underline me-4 md:me-6 shadow-sm text-sm font-medium ${
+                selectedSpecialty === "All" ? "text-gray-50" : "text-gray-300"
+              } cursor-pointer`}
+            >
+              All Doctors
+            </li>
+
+            <li
+              onClick={() => handleSpecialtyClick("Psychiatry")}
+              className={`hover:underline me-4 md:me-6 shadow-sm text-sm font-medium ${
+                selectedSpecialty === "Psychiatry" ? "text-gray-50" : "text-gray-300"
+              } cursor-pointer`}
+            >
+              Psychiatry
+            </li>
+
+            <li
+              onClick={() => handleSpecialtyClick("Psychologue")}
+              className={`hover:underline me-4 md:me-6 shadow-sm text-sm font-medium ${
+                selectedSpecialty === "Psychologue" ? "text-gray-50" : "text-gray-300"
+              } cursor-pointer`}
+            >
+              psychology
+            </li>
+            
+            <li
+              onClick={() => handleSpecialtyClick("Psychoneurosis")}
+              className={`hover:underline me-4 md:me-6 shadow-sm text-sm font-medium ${
+                selectedSpecialty === "Psychoneurosis" ? "text-gray-50" : "text-gray-300"
+              } cursor-pointer`}
+            >
+              Psychoneurosis
+            </li>
+
+            <li
+              onClick={() => handleSpecialtyClick("Neuropsychiatry")}
+              className={`hover:underline me-4 md:me-6 shadow-sm text-sm font-medium ${
+                selectedSpecialty === "Neuropsychiatry" ? "text-gray-50" : "text-gray-300"
+              } cursor-pointer`}
+            >
+              Neuropsychiatry
+            </li>
+
+            <li className="hover: me-4 md:me-6 shadow-sm cursor-pointer">
+              {">"}
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
       <div>
-        {isSuccess && filterdData && filterdData.map((ele)=>{
-          return (
-            <Doctor 
-            doctor={{
-              id:ele.id,
-              email: ele.email,
-              name : ele.first_name,
-              lastName : ele.last_name,
-              specialty: ele.specialty,
-              picture : ele.profile_picture,
-              number: ele.phone_number,
-              address:ele.address,
-              bio : ele.bio,
-              rate : ele.rate,
-              review : ele.review,
-              gender:ele.gender,
-            }}
-            /> 
-          )
-        })}
-       </div>
-       <div>
-      <h1 className="text-[50px] p-10 justify-center flex text-white">Get our App now</h1>
-       <div className="flex justify-center gap-[10px]">
-       <AppStore/>
-       <PlayStore/>
-       </div>
-       <h3 className="text-[50px] p-11 flex justify-center text-white font- " >Available On both Plateformes </h3>
-       </div>
+        {isSuccess &&
+          filterdData &&
+          filterdData.map((ele) => {
+            return (
+              <Doctor
+                doctor={{
+                  id: ele.id,
+                  email: ele.email,
+                  name: ele.first_name,
+                  lastName: ele.last_name,
+                  specialty: ele.specialty,
+                  picture: ele.profile_picture,
+                  number: ele.phone_number,
+                  address: ele.address,
+                  bio: ele.bio,
+                  rate: ele.rate,
+                  review: ele.review,
+                  gender: ele.gender,
+                }}
+              />
+            );
+          })}
+      </div>
+      <div>
+        <h1 className="text-[50px] p-10 justify-center flex text-white">
+          Get our App now
+        </h1>
+        <div className="flex justify-center gap-[10px]">
+          <AppStore />
+          <PlayStore />
+        </div>
+        <h3 className="text-[50px] p-11 flex justify-center text-white font- ">
+          Available On both Plateformes{" "}
+        </h3>
+      </div>
     </div>
   );
 };

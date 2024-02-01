@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import { useFetchOneDoctors } from '../../Api/Doctors';
 import { PhoneOutlined, HomeOutlined } from "@ant-design/icons";
 import { IoMale, IoFemale,IoMailUnreadOutline  } from "react-icons/io5";
@@ -25,6 +25,42 @@ const DoctorProf = () => {
 
 console.log(data);
   return (
+    <div>
+     {/* filter section */}
+     <div className="flex justify-center mt-[50px] ">
+      <div className="p-[20px] border rounded-2xl">
+        <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 ">
+          <Link to={`/doctors`}>
+          <li className="hover:underline me-4 md:me-6 shadow-sm text-sm font-medium text-gray-50 sm:mb-0 cursor-pointer">
+            All Doctors
+          </li>
+          </Link>
+          <Link to={`/doctors/Psychiatry`}>
+          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
+            Psychiatry
+          </li>
+          </Link>
+          <Link to={`/doctors/psychology`}>
+          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
+            psychology
+          </li>
+          </Link>
+          <Link  to={`/doctors/psychology`}>
+          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
+            Psychoneurosis
+          </li>
+          </Link>
+          <Link>
+          <li className="hover:underline me-4 md:me-6 shadow-sm cursor-pointer">
+            Neuropsychiatry
+          </li>
+          </Link>
+          <li className="hover: me-4 md:me-6 shadow-sm cursor-pointer">
+            {">"}
+          </li>
+        </ul>
+      </div>
+    </div>
     <div className='felx justify-between'>
     <div className="max-w-2xl mx-auto my-8 p-8  rounded-lg shadow-xl  cursor-default" >
       <div className="flex gap-[25px]">
@@ -73,6 +109,7 @@ console.log(data);
        </div>
        <h3 className="text-[50px] p-11 flex justify-center text-white font- " >Available On both Plateformes </h3>
        </div>
+</div>
 </div>
   )
 }

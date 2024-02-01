@@ -216,10 +216,10 @@ const PostForum = ({ post,refetch }) => {
                 <p className="text-base text-gray-600 mb-4">{post.content}</p>
 
                 <div className="flex items-center justify-start mb-6">
-                    <button className="flex items-center mr-4"onClick={handleUpvote}>
+                    <button className="flex items-center "onClick={handleUpvote}>
                         <FaArrowUp size={24} />
                     </button>
-                    <span className="text-base font-medium ml-1.5">{post.upvote}</span>
+                    <span className="text-base font-medium ml-1.5 mr-4">{post.upvote}</span>
 
                     <button className="flex items-center mr-4" onClick={handleDownvote}>
                         <FaArrowDown size={24} />

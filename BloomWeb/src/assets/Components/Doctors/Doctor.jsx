@@ -19,6 +19,7 @@ const Doctor = ({ doctor }) => {
   // gender:ele.gender,
   //
   return (
+    
     <Link to={`/doctors/${doctor.id}`}>
     <div className="max-w-2xl mx-auto my-8 p-8 bg-[#729384] rounded-lg shadow-xl  cursor-pointer" >
       <div className="flex gap-[25px]">
