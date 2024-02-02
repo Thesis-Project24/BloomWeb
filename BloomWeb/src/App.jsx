@@ -23,6 +23,7 @@ import Appi from "./assets/Components/Appi";
 import SavedArticles from "./assets/Components/Articles/SavedArticles";
 import DoctorProf from "./assets/Components/Doctors/DoctorProf";
 import DoctorsSpec from "./assets/Components/Doctors/DoctorsSpec";
+import AdminDash from "./assets/Components/admin/AdminDash";
 
 const queryClient = new QueryClient();
 function App() {
@@ -40,9 +41,10 @@ function App() {
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/:id" element={<DoctorProf />} />
           <Route path="doctors/:specialty" element={<DoctorsSpec/>}/>
-          <Route path="/forum" element={<Forum />} />
-          <Route path="/signin" element={<Signin />}/>
-          <Route path="/signin/signup" element={<Signup />}/>
+          <Route path="/forum" element={<Forum/>} />
+          <Route path="/signin" element={<Signin/>}/>
+          <Route path="/signin/signup" element={<Signup/>}/>
+          <Route path="/admin" element={<AdminDash/>}/>
           <Route path="/Appi" element={<Appi/>}/>
         </Routes>
         <Footer />
