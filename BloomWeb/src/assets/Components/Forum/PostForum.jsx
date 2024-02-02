@@ -5,9 +5,11 @@ import { IoSend } from "react-icons/io5";
 import { createCommentMutation, deleteCommentMutation, deletePostMutation, downvotePost, editCommentMutation, getUserIdFromUsername, upvotePost, useFetchComments } from '../../Api/Forum';
 import { toast } from 'react-toastify';
 import CreatePost from './createPost';
+import { useFetchOneUser } from '../../Api/Admin';
 
 const PostForum = ({ post,refetch }) => {
-
+    const {data:admin,isLoading,isError}=useFetchOneUser()
+    const [adminn,setAdmin]=useState()
     const [newComment, setNewComment] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editedContent, setEditedContent] = useState('');
@@ -152,6 +154,7 @@ const PostForum = ({ post,refetch }) => {
       const isCurrentUser = comment.userId === currentUserId;
 
       return (
+        
           <div className="flex p-2 border-b border-gray-300" key={comment.id}>
               <img src={comment.User.profile_picture} alt="Profile" className="w-10 h-10 rounded-full mr-3" />
               <div className="flex-grow">
@@ -165,10 +168,13 @@ const PostForum = ({ post,refetch }) => {
                           className="w-full px-2 py-1 border border-gray-300 rounded"
                       />
                   ) : (
+                    <div className='flex flex-row  justify-between'>
                       <p className="text-gray-600">{comment.content}</p>
+                 { admin.role==="admin"&&  <p className='cursor-pointer text-red-600 ' onClick={()=>{handleDeleteComment(comment.id)}}><FaTrashAlt /></p>}
+                      </div>
                   )}
               </div>
-              <div className="flex items-center">
+              {<div className="flex items-center">
                   {isEditing && isCurrentUser && (
                       <>
                           <button onClick={() => submitEdit(comment.id)} className="p-2 text-[#729384]">
@@ -181,6 +187,7 @@ const PostForum = ({ post,refetch }) => {
                   )}
                   {!isEditing && isCurrentUser && (
                       <>
+                      
                           <button onClick={() => startEditing(comment)} className="p-2 ">
                               <FaPencilAlt /> {/* Edit icon */}
                           </button>
@@ -189,7 +196,7 @@ const PostForum = ({ post,refetch }) => {
                           </button>
                       </>
                   )}
-              </div>
+              </div>}
           </div>
       );
   };
@@ -200,17 +207,23 @@ const PostForum = ({ post,refetch }) => {
       <div className="flex justify-center items-center my-8">
         
             <div className="bg-transparent shadow-xl max-w-xl w-full mx-auto p-6 rounded-lg ">
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-4 justify-between ">
+                    <div className='flex flex-row'>
                     <img src={post.author.profile_picture} alt="Profile" className="w-12 h-12 rounded-full mr-4" />
-                    <div>
+                    <div className='flex flex-row justify-between '>
+                    <div >
                         <span className="font-semibold text-lg text-gray-800">{post.author.first_name}</span>
                         {/* Additional post info like date */}
                     </div>
+                    </div>
+                 </div>
                     {post.authorId === "zi8ll3WpjMQe11hIiZEfpZpXz672" && (
                         <button className="ml-auto p-2" onClick={handleDeletePost}>
                             <FaTrashAlt size={24} color="#729384" />
                         </button>
                     )}
+                    
+                    { admin.role==="admin"&&  <p className='cursor-pointer text-red-600 ' onClick={()=>{handleDeletePost()}}><FaTrashAlt /></p>}
                 </div>
                 <p className="text-xl font-bold text-gray-800 mb-2">{post.title}</p>
                 <p className="text-base text-gray-600 mb-4">{post.content}</p>

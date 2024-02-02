@@ -1,6 +1,24 @@
-import React from "react";
+import { getIdToken } from "firebase/auth";
+import React, { useEffect, useState } from "react";
+import { GrUserAdmin } from "react-icons/gr";
+
 import { Link } from "react-router-dom";
+import { useFetchOneUser } from "../../Api/Admin";
+
 const Navbar = () => {
+ 
+  const {data,isLoading,isError,refetch}= useFetchOneUser()
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  if (isError) {
+    return <p>Error loading Articles</p>;
+  }
+const role = data.role
+ 
+  // console.log();
+  // const rolee=  JSON.parse(user)
+  // console.log(rolee.role);
   return (
     <nav>
       <div className="flex justify-evenly p-[30px] mt-[10px]  ">
@@ -30,6 +48,11 @@ const Navbar = () => {
             <li className="mr-4   hover:text-gray-500">SignUp</li>
             </Link>
         </ul>
+         {role==="admin" && <ul className="mr-4   hover:text-gray-500 rounded-full">
+          <Link  to={"/admin"} >
+          <GrUserAdmin/>
+          </Link>
+        </ul>}
       </div>
     
     </nav>

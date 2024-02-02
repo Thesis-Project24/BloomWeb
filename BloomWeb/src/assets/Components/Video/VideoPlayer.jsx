@@ -12,8 +12,8 @@ export const VideoPlayer = ({ user }) => {
   }, []);
 
   return (
-    <div className="bg-gray-200 p-4 rounded-lg shadow-md">
-      Uid: {user.uid}
+    <div className="bg-gray-200 p-4 rounded-lg shadow-md ">
+      
       <div ref={ref} className="w-48 h-48 bg-black"></div>
     </div>
   );

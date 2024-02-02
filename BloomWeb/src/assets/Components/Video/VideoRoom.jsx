@@ -4,7 +4,7 @@ import { VideoPlayer } from './VideoPlayer';
 
 const APP_ID = '4627a8a35d434591b72a08908f8f0e2f';
 const TOKEN =
-  '007eJxTYNhTpLk/5PmcFbM14leHWh/J2CLFecHUxHzFzQXXlx7lr8lTYDAxMzJPtEg0Nk0xMTYxtTRMMjdKNLCwNLBIs0gzSDVK41bYmdoQyMggLmfIwsgAgSA+M0N5ShYDAwDuqhzd';
+  '007eJxTYKgvznIKUNT7G502TVTn+sOZlgm7tO/1/l5Sd9rpcczKGT8VGEzMjMwTLRKNTVNMjE1MLQ2TzI0SDSwsDSzSLNIMUo3SGlbuTm0IZGQ4NuEgCyMDBIL4zAzlKVkMDABckCB9';
 const CHANNEL = 'wdj';
 
 AgoraRTC.setLogLevel(4);
@@ -133,7 +133,7 @@ export const VideoRoom = () => {
 
   return (
     <>
-      <div className="text-lg mb-3 font-medium">Your ID: {uid}</div>
+      <div className="text-lg mb-3 font-medium">Consultation </div>
       <div className="flex justify-center items-center">
         <div className="grid grid-cols-2 gap-6">
           {users.map((user) => (

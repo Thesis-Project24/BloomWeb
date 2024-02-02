@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { fetchForumPosts } from '../../Api/Forum';
 import PostForum from './PostForum';
 import CreatePost from './createPost';
+import { useFetchOneUser } from '../../Api/Admin';
 
 const Forum = () => {
+  
   const navigate = useNavigate();
   const { data: posts, isLoading, error, refetch } = fetchForumPosts();
-
+  const {data:admin,isLoad,isError}=useFetchOneUser()
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -15,16 +17,17 @@ const Forum = () => {
       </div>
     );
   }
-
+  
   if (error) {
     return <p>Error fetching posts</p>;
   }
-
+  
+  console.log(admin.role);
   return (
     <div className="grid md:grid-cols-3 lg:grid-cols-4 p-4 gap-4">
       {/* CreatePost component on the left side */}
       <div className="md:col-span-1 lg:col-span-1">
-        <CreatePost refetch={refetch} />
+       {admin.role!=="admin"&& <CreatePost refetch={refetch} />}
       </div>
       <div className="md:col-span-2 lg:col-span-3 ">
         <ul>
